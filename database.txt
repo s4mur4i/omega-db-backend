@@ -1,0 +1,51 @@
+@startuml
+title <b>Adatbázis szerkezet</b>\n\n
+
+
+Class Event << D,Lightblue >> {
+	+id			int,autoinc,null
+	-name		vacrhar 128
+	-place_id		int,unsing,null
+	-pic			varchar 512
+	-url			varchar 512
+	-date			datetime
+	-category_id	int,unsign,null
+	-besorolas		int
+}
+
+
+Class Place << D,Lightblue >> {
+        +id             int,autoinc,null
+        -name	vacrhar 128
+        -url            varchar 512
+	-lat		long
+	-lon		long
+        -addrr		varchar 128
+        -email		varchar 128
+	-tel		varchar 128
+}
+
+Class Category << D,Lightblue >> {
+	+id		int,autoinc,null
+	-name	varchar 32
+}
+
+Class Artist << D,Lighblue >> {
+	+id		int,autoinc,null
+	-name	varchar 64
+	-url		varchar 512
+}
+
+Class EventArtist << D,Lightblue >> {
+	event_id	int,not null
+	artist_id	int,not null
+}
+
+Event "place_id" *-- "id" Place: 1:N
+Event "category_id" *-- "id" Category: 1:N
+EventArtist "event_id" *--* "id" Event: N:N
+EventArtist "artist_id" *--* "id" Artist: N:N
+
+
+
+@enduml
