@@ -73,17 +73,17 @@ for id in range(1,5):
 
 			for artist in eloado:
 				sys.stdout.write("Adding '"+artist.strip()+"' artist to database = ")
-				db.addArtist(artist.strip())
+				#db.addArtist(artist.strip())
 
 			sys.stdout.write("Adding "+place+" place to database = ")
 			#addPlace(name, url, lat, lon, addrr, email, tel):
-			db.addPlace(place, "", "", "", varos, "", "")
-			db.addCategory("Koncert")
+			#db.addPlace(place, "", "", "", varos, "", "")
+			#db.addCategory("Koncert")
 			sys.stdout.write("Adding event "+name+" = ")
-			db.addEvent(name, db.getPlaceId(place), pic, "", date, 1, 18)
+			#db.addEvent(name, db.getPlaceId(place), pic, "", date, 1, 18)
 
 			sys.stdout.write("Pairing artists and events = ")
 			for artist in eloado:
 				sys.stdout.write('.')
-				db.addEventArtist(db.getEventId(place,date,name),db.getArtistId(artist))
+			#	db.addEventArtist(db.getEventId(place,date,name),db.getArtistId(artist))
 			print ""
