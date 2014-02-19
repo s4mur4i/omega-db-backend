@@ -75,7 +75,7 @@ for id in range(1,8):
         	                                lng = "%s" % xml.geocoderesponse.result.geometry.location.lng
                 	                        lng = lng[5:lng.rfind('<')]
 						sys.stdout.write('Update database .. ')
-						sql="UPDATE Place SET lat=%d, lon=%d WHERE id=%d" % (lat,lon,id)
+						sql="UPDATE Place SET lat=%s, lon=%s WHERE id=%d" % (lat,lng,id)
 						print "\n%s" % (sql)
 						db.runQuery(sql)
 						
