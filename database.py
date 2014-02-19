@@ -55,6 +55,14 @@ class Db:
 		self.c.execute('''CREATE  TABLE  IF NOT EXISTS EventArtist (event_id INTEGER NOT NULL, artist_id INTEGER NOT NULL)''')
 
 
+	def runQuery(self, sql):
+		try:
+			self.c.execute(sql)
+			return self.c.fetchall()
+		except:
+			sys.stderr.write("There is error in SQL result\n")
+			return False
+
 	def addEvent(self,name, place, pic, url, date, category, besorolas):
 		try:
 			category=int(category)
@@ -84,7 +92,7 @@ class Db:
 
 
 	def addPlace(self,name, url, lat, lon, addrr, email, tel):
-		if len(name)>=2 and not self.placeExist(name):
+		if len(name)>=2 and not self.placeExistByName(name):
 			self.c.execute("INSERT INTO Place (name,url,lat,lon,addrr,email,tel) VALUES (?,?,?,?,?,?,?)",(name,url,lat,lon,addrr,email,tel))
 			self.conn.commit()
 			print "Added"
@@ -133,7 +141,7 @@ class Db:
 		else:
 		        return False
 
-	def placeExist(self,name):
+	def placeExistByName(self,name):
 		sql="SELECT count(id) FROM Place WHERE name='%s'" % name
 		self.c.execute(sql)
 		ret=self.c.fetchone()[0]
@@ -141,6 +149,16 @@ class Db:
 		        return True
 		else:
 		        return False
+
+	def placeExistByCoo(self,lat,lng):
+		sql = "SELECT id FROM Place WHERE lat=%d and lon=%d" % (lat,lng)
+		self.c.execute(sql)
+		res = self.c.fetchone()[0]
+		if int(res)>=1:
+			return True
+		else:
+			return False
+
 
 	def getPlaceId(self,name):
 		try:
